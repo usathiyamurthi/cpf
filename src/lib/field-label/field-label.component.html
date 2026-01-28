@@ -1,0 +1,16 @@
+<label class="cpf-label" [ngClass]="editable && linkLabel !== ''? 'w-100':''">
+    @if (required) {
+        <span class="cpf-required">*</span>
+    }
+    <p class="d-inline mb-0" [innerHTML]="text"></p>
+    @if (showHelpIcon) {
+        <a href="javascript:;" [tooltip]="helpContent" triggers="focus" placement="right"
+            (click)="helpEvt()"><i [class]="helpIconClass || 'far fa-question-circle ml-1'"></i></a>
+    }
+    @if (editable && linkLabel !== '') {
+        <div class="float-right">
+            <a href="javascript:;" class="dlt-btn" title="linkLabel" (click)="addLabelLinkEvent()">
+                <em class="far fa-plus pr-2 pt-2"></em>{{linkLabel}}</a>
+        </div>
+    }
+</label>

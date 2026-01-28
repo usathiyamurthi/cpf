@@ -1,0 +1,70 @@
+<div class="cpf-file-upload-container">
+    @if (config.label) {
+        <h2 class="upload-section-title">{{ config.label }}</h2>
+    }
+
+    @if (config.noteText) {
+        <p class="upload-section-description">{{ config.noteText }}</p>
+    }
+
+    <div [ngStyle]="{'width': effectiveControlWidth(config.controlWidth)}">
+        @if (value && value.length !== 0) {
+            <div class="uploaded-files-list">
+                @for (file of value?.length ? value : [value]; track index; let index = $index) {
+                    <cpf-file (fileSelected)="handleSelectedFile($event, index)"
+                        [descriptor]="{name: file.name, icon: '', type: 'file', url: '', isEditable: (config.editable && !config.readonly) || false, lastUpdated: {by: '', date: ''} }">
+                    </cpf-file>
+                }
+            </div>
+        }
+
+        @if (!config.readonly) {
+            <div class="cpf-upload-area"
+                [ngClass]="{
+                    'cpf-error': config.showError && !config.warning, 
+                    'cpf-warning': config.showError && config.warning, 
+                    'cpf-disabled': config.disabled,
+                    'cpf-large': config.isLarge
+                }"
+                [draggable]="!(!config.editable || config.disabled)" 
+                cpfDragDrop
+                (fileDropped)="uploadedFile($event)">
+                
+                <label class="upload-content">
+                    <input 
+                        [formControl]="fileUploader" 
+                        hidden 
+                        type="file" 
+                        cpfFileSelect
+                        (fileSelected)="uploadedFile($event)" 
+                        [attr.accept]="filetypes"
+                        [attr.multiple]="(config.multiselect) || null"
+                        [attr.disabled]="(!config.editable || config.disabled) || null">
+                    
+                    <!-- Upload Icon Circle -->
+                    <div class="upload-icon-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M28 20V25.3333C28 26.0406 27.719 26.7189 27.219 27.219C26.7189 27.719 26.0406 28 25.3333 28H6.66667C5.95942 28 5.28115 27.719 4.78105 27.219C4.28095 26.7189 4 26.0406 4 25.3333V20" stroke="#0071BC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22.6667 10.6667L16 4L9.33337 10.6667" stroke="#0071BC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 4V20" stroke="#0071BC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+
+                    <!-- Upload Text -->
+                    <p class="upload-instruction-text">Click to browse or drag & drop here</p>
+
+                    <!-- Browse Button -->
+                    <button type="button" class="btn-browse" [disabled]="!config.editable || config.disabled">
+                        + BROWSE
+                    </button>
+                </label>
+            </div>
+        }
+
+        @if (config.showError) {
+            <cpf-field-helper-text [text]="config.errorText"
+                [styleClass]="config.warning ? 'cpf-warning-text' : 'cpf-error-text'">
+            </cpf-field-helper-text>
+        }
+    </div>
+</div>

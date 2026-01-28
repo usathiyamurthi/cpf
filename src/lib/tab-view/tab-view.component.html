@@ -1,0 +1,13 @@
+<div class="tab-view">
+<div class="tab-header">
+    @for (tab of tabs; track $index) {
+        <button (click)="selectTab($index)" 
+                        [class.active]="selectedIndex === $index">
+            {{ tab }}
+        </button>
+    }
+</div>
+  <div class="tab-content">
+    {{ getTabData(selectedIndex) }}
+  </div>
+</div>

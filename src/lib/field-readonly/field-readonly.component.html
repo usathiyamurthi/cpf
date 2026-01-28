@@ -1,0 +1,29 @@
+<div class="cpf-input-group">
+    @if (state == 'Loading') {
+        <div class="loader-section">
+            <div class="animated-background h-8 fieldloader-w-100 fieldloader-anim">
+                <div class="background-masker"></div>
+            </div>
+            <div class="animated-background h-6 fieldloader-w-70 fieldloader-anim">
+                <div class="background-masker"></div>
+            </div>
+        </div>
+    } @else {
+        @if (value && IsSafeHtml) {
+            <span [@valueChangeAnimation]="value" class="cpf-readonly-value" [innerHTML]="value">
+            </span>
+        }
+        @if (value && !IsSafeHtml) {
+            <span [@valueChangeAnimation]="value" class="cpf-readonly-value">{{value}}
+            </span>
+        }
+        @if (!value) {
+            <span class="cpf-readonly-no-value" [innerHTML]="noValueText"></span>
+        }
+        @if (showHelpforInputValue) {
+            <a href="javascript:;" class="ml-1" (click)="helpEvt($event)">
+                <i class="far fa-question-circle ml-1"></i>
+            </a>
+        }
+    }
+</div>

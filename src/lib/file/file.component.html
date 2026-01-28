@@ -1,0 +1,23 @@
+@if (descriptor.isEditable) {
+	<div class="cpf-chip cpf-has-close">
+		<a (click)="fileSelected.emit({name: descriptor['name'], type: descriptor['type'], action: 'download'})">
+			{{ descriptor.name }}
+		</a>
+		<a class="cpf-chip-close"
+			(click)="fileSelected.emit({name: descriptor['name'], type: descriptor['type'], action: 'delete'})">
+			&times;
+        </a>
+        @if (descriptor.lastUpdated && descriptor.lastUpdated.by && descriptor.lastUpdated.date) {
+            <div>Last updated by <span>{{descriptor.lastUpdated.by}}</span> <span> on {{descriptor.lastUpdated.date}}</span></div>
+        }
+    </div>
+} @else {
+	<div class="cpf-chip nonEditable">
+		<a (click)="fileSelected.emit({name: descriptor['name'], type: descriptor['type'], action: 'download'})">
+			{{ descriptor.name }}
+		</a>
+        @if (descriptor.lastUpdated && descriptor.lastUpdated.by && descriptor.lastUpdated.date) {
+            <div>Last updated by <span>{{descriptor.lastUpdated.by}}</span> <span> on {{descriptor.lastUpdated.date}}</span></div>
+        }
+    </div>
+}

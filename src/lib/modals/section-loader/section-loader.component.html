@@ -1,0 +1,123 @@
+@switch (type) {
+    @case ('form') {
+        <div class="loader-section">
+            <div class="row">
+                <div class="col-12">
+                    <div class="animated-background h-15 w-25">
+                        <div class="background-masker"></div>
+                    </div>
+                    <div class="animated-background h-10 w-50 mt-2 mb-4">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-4">
+                    <div class="animated-background h-15 w-75">
+                        <div class="background-masker"></div>
+                    </div>
+                    <div class="animated-background h-15 mt-1 w-25">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-4">
+                    <div class="animated-background h-15 w-75">
+                        <div class="background-masker"></div>
+                    </div>
+                    <div class="animated-background h-15 mt-1 w-25">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-4">
+                    <div class="animated-background h-15 w-75">
+                        <div class="background-masker"></div>
+                    </div>
+                    <div class="animated-background mt-1 w-25">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-4">
+                    <div class="d-flex align-items-center w-100">
+                        <div class="animated-background h-10 mt-1 w-50 mb-1">
+                            <div class="background-masker"></div>
+                        </div>
+                        <div class="mandatory ml-1"></div>
+                    </div>
+                    <div class="animated-background w-75">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-4">
+                    <div class="d-flex align-items-center w-100">
+                        <div class="animated-background h-10 mt-1 w-25 mb-1">
+                            <div class="background-masker"></div>
+                        </div>
+                    </div>
+
+                    <div class="animated-background w-50">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-4">
+                    <div class="d-flex align-items-center w-100">
+                        <div class="animated-background h-10 mt-1 w-25 mb-1">
+                            <div class="background-masker"></div>
+                        </div>
+                    </div>
+
+                    <div class="animated-background w-50">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-4">
+                    <div class="d-flex align-items-center w-100">
+                        <div class="animated-background h-10 mt-1 w-50 mb-1">
+                            <div class="background-masker"></div>
+                        </div>
+                    </div>
+                    <div class="animated-background w-75 h-15 mb-1">
+                        <div class="background-masker"></div>
+                    </div>
+                    <div class="animated-background w-75 h-15">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-4">
+                    <div class="d-flex align-items-center w-100">
+                        <div class="animated-background h-10 mt-1 w-50 mb-1">
+                            <div class="background-masker"></div>
+                        </div>
+                    </div>
+                    <div class="animated-background w-75 h-15 mb-1">
+                        <div class="background-masker"></div>
+                    </div>
+                    <div class="animated-background w-75 h-15">
+                        <div class="background-masker"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @case ('table') { }
+    @default {
+        @for (i of [null,null,null]; track $index) {
+            <div class="timeline-item">
+                <div class="animated-background">
+                    <div class="background-masker header-top"></div>
+                    <div class="background-masker header-left"></div>
+                    <div class="background-masker header-right"></div>
+                    <div class="background-masker header-bottom"></div>
+                    <div class="background-masker subheader-left"></div>
+                    <div class="background-masker subheader-right"></div>
+                    <div class="background-masker subheader-bottom"></div>
+                    <div class="background-masker content-top"></div>
+
+                    <div class="background-masker content-first-end"></div>
+                    <div class="background-masker content-second-line"></div>
+                    <div class="background-masker content-second-end"></div>
+                    <div class="background-masker content-third-line"></div>
+                    <div class="background-masker content-third-end"></div>
+                </div>
+            </div>
+            <br />
+        }
+    }
+}

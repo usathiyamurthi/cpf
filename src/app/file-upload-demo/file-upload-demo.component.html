@@ -1,0 +1,393 @@
+<div class="file-upload-demo-container">
+  <header class="demo-header">
+    <h1>CPF File Upload Component - Comprehensive Demo</h1>
+    <p class="subtitle">Explore all features and use cases of the file upload component</p>
+  </header>
+
+  <form [formGroup]="demoForm" (ngSubmit)="submitForm()">
+    
+    <!-- Basic File Upload -->
+    <section class="demo-section">
+      <h2>1. Basic File Upload</h2>
+      <p class="description">Default configuration with drag & drop support and multiple file selection.</p>
+      <cpf-file-upload 
+        [config]="basicConfig" 
+        formControlName="basicUpload"
+        (change)="onFileChange($event, 'Basic Upload')"
+        (remove)="onFileRemove($event, 'Basic Upload')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Single File Upload -->
+    <section class="demo-section">
+      <h2>2. Single File Upload</h2>
+      <p class="description">Only one file can be uploaded. Uploading a new file replaces the existing one.</p>
+      <cpf-file-upload 
+        [config]="singleFileConfig" 
+        formControlName="singleFile"
+        (change)="onFileChange($event, 'Single File')"
+        (remove)="onFileRemove($event, 'Single File')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Multiple Files Upload -->
+    <section class="demo-section">
+      <h2>3. Multiple Files Upload</h2>
+      <p class="description">Upload multiple files simultaneously using drag & drop or file selection.</p>
+      <cpf-file-upload 
+        [config]="multipleFilesConfig" 
+        formControlName="multipleFiles"
+        (change)="onFileChange($event, 'Multiple Files')"
+        (remove)="onFileRemove($event, 'Multiple Files')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Restricted File Types -->
+    <section class="demo-section">
+      <h2>4. Restricted File Types</h2>
+      <p class="description">Only specific file types are allowed (PDF, JPG, PNG, GIF).</p>
+      <cpf-file-upload 
+        [config]="restrictedTypesConfig" 
+        formControlName="restrictedTypes"
+        (change)="onFileChange($event, 'Restricted Types')"
+        (remove)="onFileRemove($event, 'Restricted Types')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Required File Upload -->
+    <section class="demo-section">
+      <h2>5. Required File Upload</h2>
+      <p class="description">This field is required with validation support.</p>
+      <cpf-file-upload 
+        [config]="requiredFileConfig" 
+        formControlName="requiredFile"
+        (change)="onFileChange($event, 'Required File')"
+        (remove)="onFileRemove($event, 'Required File')">
+      </cpf-file-upload>
+      <button type="button" class="btn btn-secondary mt-2" (click)="validateRequiredFile()">
+        Validate Required Field
+      </button>
+    </section>
+
+    <!-- Large Upload Area -->
+    <section class="demo-section">
+      <h2>6. Large Upload Area</h2>
+      <p class="description">Larger drop zone for enhanced user experience.</p>
+      <cpf-file-upload 
+        [config]="largeUploadConfig" 
+        formControlName="largeUpload"
+        (change)="onFileChange($event, 'Large Upload')"
+        (remove)="onFileRemove($event, 'Large Upload')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Readonly Upload -->
+    <section class="demo-section">
+      <h2>7. Readonly Upload (View Only)</h2>
+      <p class="description">Files are displayed but cannot be uploaded, modified, or removed.</p>
+      <cpf-file-upload 
+        [config]="readonlyConfig" 
+        formControlName="readonlyUpload"
+        (change)="onFileChange($event, 'Readonly Upload')"
+        (remove)="onFileRemove($event, 'Readonly Upload')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Disabled Upload -->
+    <section class="demo-section">
+      <h2>8. Disabled Upload</h2>
+      <p class="description">Upload functionality is completely disabled.</p>
+      <cpf-file-upload 
+        [config]="disabledConfig" 
+        formControlName="disabledUpload"
+        (change)="onFileChange($event, 'Disabled Upload')"
+        (remove)="onFileRemove($event, 'Disabled Upload')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Upload with Warning -->
+    <section class="demo-section">
+      <h2>9. Upload with Warning State</h2>
+      <p class="description">Shows a warning message to inform users about constraints.</p>
+      <cpf-file-upload 
+        [config]="warningConfig" 
+        formControlName="basicUpload"
+        (change)="onFileChange($event, 'Warning Upload')"
+        (remove)="onFileRemove($event, 'Warning Upload')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Upload with Error -->
+    <section class="demo-section">
+      <h2>10. Upload with Error State</h2>
+      <p class="description">Displays error messages for validation failures.</p>
+      <cpf-file-upload 
+        [config]="errorConfig" 
+        formControlName="basicUpload"
+        (change)="onFileChange($event, 'Error Upload')"
+        (remove)="onFileRemove($event, 'Error Upload')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Custom Width -->
+    <section class="demo-section">
+      <h2>11. Custom Width Upload</h2>
+      <p class="description">Upload component with custom width (50%).</p>
+      <cpf-file-upload 
+        [config]="customWidthConfig" 
+        formControlName="basicUpload"
+        (change)="onFileChange($event, 'Custom Width')"
+        (remove)="onFileRemove($event, 'Custom Width')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Without Base64 Encoding -->
+    <section class="demo-section">
+      <h2>12. Upload without Base64 Encoding</h2>
+      <p class="description">Files are stored as File objects instead of base64 encoded strings.</p>
+      <cpf-file-upload 
+        [config]="noEncodeConfig" 
+        [encode]="false"
+        formControlName="basicUpload"
+        (change)="onFileChange($event, 'No Encoding')"
+        (remove)="onFileRemove($event, 'No Encoding')">
+      </cpf-file-upload>
+    </section>
+
+    <!-- Form Actions -->
+    <section class="demo-section form-actions">
+      <button type="submit" class="btn btn-primary">Submit Form</button>
+      <button type="button" class="btn btn-secondary" (click)="demoForm.reset()">Reset Form</button>
+    </section>
+  </form>
+
+  <!-- Event Logs -->
+  <section class="demo-section event-logs-section">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Event Logs</h2>
+      <button type="button" class="btn btn-sm btn-outline-secondary" (click)="clearLogs()">Clear Logs</button>
+    </div>
+    <div class="event-logs">
+      @if (eventLogs.length === 0) {
+        <p class="text-muted">No events logged yet. Interact with the upload components above.</p>
+      }
+      @for (log of eventLogs; track $index) {
+        <div class="log-entry">{{ log }}</div>
+      }
+    </div>
+  </section>
+
+  <!-- Component Features Summary -->
+  <section class="demo-section features-summary">
+    <h2>Component Features Summary</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>📁 File Selection Methods</h3>
+        <ul>
+          <li>Click to browse files</li>
+          <li>Drag and drop files</li>
+          <li>Single or multiple file selection</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>⚙️ Configuration Options</h3>
+        <ul>
+          <li>Required/Optional field</li>
+          <li>Enable/Disable upload</li>
+          <li>Readonly mode</li>
+          <li>Custom width</li>
+          <li>Large upload area</li>
+          <li>Base64 encoding toggle</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>🎨 Visual States</h3>
+        <ul>
+          <li>Normal state</li>
+          <li>Error state</li>
+          <li>Warning state</li>
+          <li>Disabled state</li>
+          <li>Readonly state</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>✅ Validation & Constraints</h3>
+        <ul>
+          <li>File type restrictions</li>
+          <li>Required field validation</li>
+          <li>Custom error messages</li>
+          <li>Helper text support</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>🔄 File Operations</h3>
+        <ul>
+          <li>Upload files</li>
+          <li>Download files</li>
+          <li>Delete/Remove files</li>
+          <li>View file list</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>🎯 Events</h3>
+        <ul>
+          <li><code>change</code> - File list changed</li>
+          <li><code>remove</code> - File removed</li>
+          <li>Reactive forms integration</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="demo-section api-docs">
+    <h2>API Documentation</h2>
+    
+    <h3>Input Properties</h3>
+    <table class="api-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>config</code></td>
+          <td><code>IExtendedFieldConfig</code></td>
+          <td>-</td>
+          <td>Configuration object for the file upload component</td>
+        </tr>
+        <tr>
+          <td><code>encode</code></td>
+          <td><code>boolean</code></td>
+          <td><code>true</code></td>
+          <td>Whether to encode files in base64 format</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Output Events</h3>
+    <table class="api-table">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>change</code></td>
+          <td><code>EventEmitter&lt;any&gt;</code></td>
+          <td>Emitted when the file list changes</td>
+        </tr>
+        <tr>
+          <td><code>remove</code></td>
+          <td><code>EventEmitter&lt;any&gt;</code></td>
+          <td>Emitted when a file is removed</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>IExtendedFieldConfig Interface</h3>
+    <table class="api-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>label</code></td>
+          <td><code>string</code></td>
+          <td>Label text for the upload field</td>
+        </tr>
+        <tr>
+          <td><code>required</code></td>
+          <td><code>boolean</code></td>
+          <td>Whether the field is required</td>
+        </tr>
+        <tr>
+          <td><code>showHelpIcon</code></td>
+          <td><code>boolean</code></td>
+          <td>Show help icon next to label</td>
+        </tr>
+        <tr>
+          <td><code>helpContent</code></td>
+          <td><code>string</code></td>
+          <td>Help tooltip content</td>
+        </tr>
+        <tr>
+          <td><code>showError</code></td>
+          <td><code>boolean</code></td>
+          <td>Show error/warning state</td>
+        </tr>
+        <tr>
+          <td><code>errorText</code></td>
+          <td><code>string</code></td>
+          <td>Error/Warning message text</td>
+        </tr>
+        <tr>
+          <td><code>warning</code></td>
+          <td><code>boolean</code></td>
+          <td>Display as warning instead of error</td>
+        </tr>
+        <tr>
+          <td><code>noteText</code></td>
+          <td><code>string</code></td>
+          <td>Helper text below the upload area</td>
+        </tr>
+        <tr>
+          <td><code>editable</code></td>
+          <td><code>boolean</code></td>
+          <td>Whether files can be edited/removed</td>
+        </tr>
+        <tr>
+          <td><code>disabled</code></td>
+          <td><code>boolean</code></td>
+          <td>Disable the upload component</td>
+        </tr>
+        <tr>
+          <td><code>readonly</code></td>
+          <td><code>boolean</code></td>
+          <td>Display in readonly mode</td>
+        </tr>
+        <tr>
+          <td><code>isLarge</code></td>
+          <td><code>boolean</code></td>
+          <td>Use larger upload area</td>
+        </tr>
+        <tr>
+          <td><code>multiselect</code></td>
+          <td><code>boolean</code></td>
+          <td>Allow multiple file selection</td>
+        </tr>
+        <tr>
+          <td><code>base64Encode</code></td>
+          <td><code>boolean</code></td>
+          <td>Encode files in base64 format</td>
+        </tr>
+        <tr>
+          <td><code>controlWidth</code></td>
+          <td><code>string</code></td>
+          <td>Custom width for the control (CSS value)</td>
+        </tr>
+        <tr>
+          <td><code>extraProperties</code></td>
+          <td><code>object</code></td>
+          <td>Additional properties (e.g., allowedfiletypes)</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

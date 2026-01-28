@@ -1,0 +1,261 @@
+<div class="modal-demo-container">
+  <div class="header">
+    <h1>CPF Modal Dialog Demo</h1>
+    <p>Interactive demonstration of all available modal types</p>
+  </div>
+
+  <div class="last-action-banner" [class.active]="lastAction !== 'No action yet'">
+    <strong>Last Action:</strong> {{ lastAction }}
+    <button class="clear-btn" (click)="clearAction()" *ngIf="lastAction !== 'No action yet'">Clear</button>
+  </div>
+
+  <div class="demo-sections">
+    
+    <!-- Alert Modals Section -->
+    <section class="demo-section">
+      <h2>Alert Modals</h2>
+      <p class="section-description">
+        Simple alert dialogs with OK button. Supports danger and warning variants with optional details.
+      </p>
+      <div class="button-grid">
+        <div class="demo-item">
+          <button class="demo-btn danger" (click)="showAlertDanger()">
+            <span class="icon">⚠️</span>
+            Alert Danger
+          </button>
+          <span class="method-name">alertDanger()</span>
+        </div>
+        <div class="demo-item">
+          <button class="demo-btn warning" (click)="showAlertWarning()">
+            <span class="icon">⚡</span>
+            Alert Warning
+          </button>
+          <span class="method-name">alertWarning()</span>
+        </div>
+        <div class="demo-item">
+          <button class="demo-btn primary" (click)="showAlert()">
+            <span class="icon">ℹ️</span>
+            Simple Alert
+          </button>
+          <span class="method-name">alert()</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Information & Error Section -->
+    <section class="demo-section">
+      <h2>Information & Error Modals</h2>
+      <p class="section-description">
+        Display informational messages or error notifications with optional cancel actions.
+      </p>
+      <div class="button-grid">
+        <div class="demo-item">
+          <button class="demo-btn info" (click)="showInfo()">
+            <span class="icon">💡</span>
+            Information
+          </button>
+          <span class="method-name">info()</span>
+        </div>
+        <div class="demo-item">
+          <button class="demo-btn error" (click)="showError()">
+            <span class="icon">❌</span>
+            Error
+          </button>
+          <span class="method-name">error()</span>
+        </div>
+        <div class="demo-item">
+          <button class="demo-btn warning-alt" (click)="showWarning()">
+            <span class="icon">⚠️</span>
+            Warning Dialog
+          </button>
+          <span class="method-name">warning()</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Confirmation Modals Section -->
+    <section class="demo-section">
+      <h2>Confirmation Modals</h2>
+      <p class="section-description">
+        Ask users to confirm actions. Supports custom labels and optional icons.
+      </p>
+      <div class="button-grid">
+        <div class="demo-item">
+          <button class="demo-btn confirm" (click)="showConfirm()">
+            <span class="icon">🗑️</span>
+            Confirm (with icon)
+          </button>
+          <span class="method-name">confirm()</span>
+        </div>
+        <div class="demo-item">
+          <button class="demo-btn confirm" (click)="showConfirmNoIcon()">
+            <span class="icon">💾</span>
+            Confirm (no icon)
+          </button>
+          <span class="method-name">confirm()</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Modals Section -->
+    <section class="demo-section">
+      <h2>Success Modals</h2>
+      <p class="section-description">
+        Notify users of successful operations. Optional cancel button and close icon.
+      </p>
+      <div class="button-grid">
+        <div class="demo-item">
+          <button class="demo-btn success" (click)="showSuccess()">
+            <span class="icon">✅</span>
+            Success (with cancel)
+          </button>
+          <span class="method-name">success()</span>
+        </div>
+        <div class="demo-item">
+          <button class="demo-btn success" (click)="showSuccessSimple()">
+            <span class="icon">✓</span>
+            Success (simple)
+          </button>
+          <span class="method-name">success()</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loading Modal Section -->
+    <section class="demo-section">
+      <h2>Loading Modal</h2>
+      <p class="section-description">
+        Display a loading spinner with custom message. Auto-closes after async operation.
+      </p>
+      <div class="button-grid">
+        <div class="demo-item">
+          <button class="demo-btn loading" (click)="showLoading()">
+            <span class="icon">⏳</span>
+            Show Loading (3s)
+          </button>
+          <span class="method-name">loading()</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advanced Modals Section -->
+    <section class="demo-section">
+      <h2>Advanced Modals</h2>
+      <p class="section-description">
+        Custom component and template modals for complex scenarios.
+      </p>
+      <div class="button-grid">
+        <div class="demo-item">
+          <button class="demo-btn custom" (click)="showCustomComponent()">
+            <span class="icon">🧩</span>
+            Custom Component
+          </button>
+          <span class="method-name">modalComponent()</span>
+        </div>
+        <div class="demo-item">
+          <button class="demo-btn custom" (click)="showCustomTemplate()">
+            <span class="icon">📄</span>
+            Custom Template
+          </button>
+          <span class="method-name">modalTemplate()</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- API Reference Section -->
+  <section class="api-reference">
+    <h2>API Reference</h2>
+    <div class="api-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Parameters</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>alertDanger()</code></td>
+            <td><code>IModalAlertParams</code></td>
+            <td>Shows danger alert with red icon</td>
+          </tr>
+          <tr>
+            <td><code>alertWarning()</code></td>
+            <td><code>IModalAlertParams</code></td>
+            <td>Shows warning alert with yellow icon</td>
+          </tr>
+          <tr>
+            <td><code>alert()</code></td>
+            <td><code>IModalAlertParams</code></td>
+            <td>Shows standard alert</td>
+          </tr>
+          <tr>
+            <td><code>info()</code></td>
+            <td><code>IModalAlertParams</code></td>
+            <td>Shows info modal with optional cancel</td>
+          </tr>
+          <tr>
+            <td><code>error()</code></td>
+            <td><code>IModalAlertParams</code></td>
+            <td>Shows error modal with details</td>
+          </tr>
+          <tr>
+            <td><code>warning()</code></td>
+            <td><code>IModalAlertParams</code></td>
+            <td>Shows warning modal with cancel option</td>
+          </tr>
+          <tr>
+            <td><code>loading()</code></td>
+            <td><code>msg: string, params?: ModalOptions</code></td>
+            <td>Shows loading spinner</td>
+          </tr>
+          <tr>
+            <td><code>confirm()</code></td>
+            <td><code>msg, confirmCb, cancelCb, title?, labels?, icon?</code></td>
+            <td>Shows confirmation dialog</td>
+          </tr>
+          <tr>
+            <td><code>success()</code></td>
+            <td><code>msg, confirmCb, cancelCb?, title?, labels?, showClose?</code></td>
+            <td>Shows success notification</td>
+          </tr>
+          <tr>
+            <td><code>modalComponent()</code></td>
+            <td><code>component, confirmCb, cancelCb?, params?</code></td>
+            <td>Shows custom component in modal</td>
+          </tr>
+          <tr>
+            <td><code>modalTemplate()</code></td>
+            <td><code>template: TemplateRef, params?</code></td>
+            <td>Shows custom template in modal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Code Example Section -->
+  <section class="code-example">
+    <h2>Usage Example</h2>
+    <pre><code>// Inject the service
+constructor(private modalService: ModalDialogService) {{ '{}' }}
+
+// Show a confirmation dialog
+showDeleteConfirm() {{ '{' }}
+  this.modalService.confirm(
+    'Are you sure you want to delete?',
+    () => {{ '{' }} 
+      console.log('Confirmed!');
+      this.modalRef?.hide();
+    {{ '}' }},
+    () => {{ '{' }} console.log('Cancelled'); {{ '}' }},
+    'Confirm Delete',
+    'Delete',
+    'Cancel'
+  );
+{{ '}' }}</code></pre>
+  </section>
+</div>
