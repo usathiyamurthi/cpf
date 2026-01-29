@@ -108,16 +108,16 @@ body {
 
 /* Primary Button */
 .btn-primary-brand {
-    background-color: var(--color-primary);
-    border: none;
-    color: var(--color-white);
-    font-family: var(--font-primary);
+    background-color: var(--color-primary) !important;
+    border: none !important;
+    color: var(--color-white) !important;
+    font-family: var(--font-primary) !important;
     font-size: 14px;
     font-weight: 700;
     line-height: 21px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    padding: 8px 24px;
+    padding: 8px 24px !important;
     transition: all 0.3s ease;
 }
 
@@ -151,21 +151,21 @@ body {
 
 /* Secondary Button */
 .btn-secondary-brand {
-    background-color: var(--color-white);
-    border: 2px solid var(--color-primary);
-    color: var(--color-primary);
+    background-color: var(--color-white) !important;
+    border: 2px solid var(--color-primary) !important;
+    color: var(--color-primary) !important;
     font-family: var(--font-primary);
     font-size: 13px;
     font-weight: 700;
     line-height: 19.5px;
     text-transform: uppercase;
-    padding: 8px 16px;
+    padding: 8px 16px !important;
     transition: all 0.3s ease;
 }
 
 .btn-secondary-brand:hover {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--color-primary) !important;
+    color: var(--color-white) !important;
 }
 
 /* ==================== MAIN CONTENT ==================== */
