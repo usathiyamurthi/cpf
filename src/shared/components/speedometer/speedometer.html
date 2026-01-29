@@ -1,0 +1,7 @@
+<div class="speedometer-container" [style.width.px]="size" [style.height.px]="size">
+  <div #svgContainer class="svg-container"></div>
+  
+  <div class="value-display">
+    <div class="value-label" [style]="labelStyles()">{{ getLabel() }}</div>
+  </div>
+</div>

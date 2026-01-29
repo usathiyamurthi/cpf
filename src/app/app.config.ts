@@ -6,10 +6,10 @@ import { ApiCallInterceptor, SpiDiagnosticsModule } from '@spi/diagnostics';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { routes } from './app.routes';
-import { MSAL_SERVICES } from './msal.config';
 import { ENVIRONMENT_TOKEN } from '@spi/shared';
 import { environment } from '../environments/environment';
+import { routes } from './app.routes';
+import { MSAL_SERVICES } from './msal.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
