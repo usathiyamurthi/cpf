@@ -4,12 +4,12 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { Subscription } from 'rxjs';
 import { CpfModalDialogModule } from '../lib/cpf-modaldialog.module';
-import { Base } from './features/components/base/base';
+import { CountrySelection } from './features/relevance/components/country-selection/country-selection';
 import { DiagnosticService } from '@spi/diagnostics';
  
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, CpfModalDialogModule, Base],
+  imports: [RouterOutlet, RouterLink, CpfModalDialogModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
