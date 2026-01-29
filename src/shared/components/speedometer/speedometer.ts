@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, computed, signal, effect, viewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, computed, effect, signal, viewChild } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
@@ -9,7 +9,7 @@ import * as d3 from 'd3';
   templateUrl: './speedometer.html',
   styleUrls: ['./speedometer.scss']
 })
-export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
+export class SpeedometerComponent implements AfterViewInit {
   private readonly svgContainer = viewChild<ElementRef<HTMLDivElement>>('svgContainer');
   private svg: d3.Selection<SVGSVGElement, unknown, null, undefined> | null = null;
   private initialized = false;
@@ -20,35 +20,17 @@ export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
   set value(v: number) { this._value.set(Number(v ?? 0)); }
   get value(): number { return this._value(); }
 
-  private _minValue = signal<number>(0);
-  @Input()
-  set minValue(v: number) { this._minValue.set(Number(v ?? 0)); }
-  get minValue(): number { return this._minValue(); }
-
   private _maxValue = signal<number>(100);
   @Input()
   set maxValue(v: number) { this._maxValue.set(Number(v ?? 100)); }
   get maxValue(): number { return this._maxValue(); }
 
-  private _unit = signal<string>('');
-  @Input()
-  set unit(v: string) { this._unit.set(v ?? ''); }
-  get unit(): string { return this._unit(); }
 
-  private _label = signal<string>('');
-  @Input()
-  set label(v: string) { this._label.set(v ?? ''); }
-  get label(): string { return this._label(); }
 
   private _size = signal<number>(250);
   @Input()
   set size(v: number) { this._size.set(Number(v ?? 250)); }
   get size(): number { return this._size(); }
-
-  private _showValue = signal<boolean>(true);
-  @Input()
-  set showValue(v: boolean) { this._showValue.set(Boolean(v)); }
-  get showValue(): boolean { return this._showValue(); }
 
   private _colorZones = signal<Array<{ from: number; to: number; color: string }>>([
     { from: 0, to: 33, color: '#ef4444' },
@@ -64,13 +46,9 @@ export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
     effect(() => {
       // Read all signals to register dependencies
       this._value();
-      this._minValue();
       this._maxValue();
       this._size();
       this._colorZones();
-      this._unit();
-      this._label();
-      this._showValue();
 
       // Only redraw if initialized
       if (this.initialized) {
@@ -81,7 +59,7 @@ export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
 
   // Computed signals
   private readonly normalizedValue = computed(() => {
-    const min = this._minValue();
+    const min = 0;
     const max = this._maxValue();
     const raw = this._value();
     const clamped = Math.max(min, Math.min(max, raw));
@@ -96,10 +74,9 @@ export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
     return startAngle + (normalized * angleRange / 100);
   });
 
-  readonly displayValue = computed(() => this._value().toFixed(1));
 
-  /* XXX Use this computation to determine arc color */
-  readonly needleColor = computed(() => {
+
+  readonly arcColor = computed(() => {
     const normalized = this.normalizedValue();
     for (const zone of this._colorZones()) {
       if (normalized >= zone.from && normalized <= zone.to) return zone.color;
@@ -107,10 +84,7 @@ export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
     return this._colorZones()[this._colorZones().length - 1]?.color || '#22c55e';
   });
 
-  // Lifecycle hooks
-  ngOnInit(): void {}
-  
-  ngOnChanges(_: SimpleChanges): void {}
+
 
   ngAfterViewInit(): void {
     this.initializeD3();
@@ -153,37 +127,32 @@ export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
     // Create main group
     const mainGroup = this.svg.append('g');
 
-    // Draw outer arc
+    // Draw outer arc (background)
+    const outerArcGenerator = d3.arc<any>()
+      .innerRadius(radius - arcWidth / 2)
+      .outerRadius(radius + arcWidth / 2)
+      .startAngle(-Math.PI / 2)
+      .endAngle(Math.PI / 2);
 
-    const arcGenerator = d3.arc<any>()
-        .innerRadius(radius - arcWidth / 2)
-        .outerRadius(radius + arcWidth / 2)
-        .startAngle((-90 - 0) * Math.PI / 180)
-        .endAngle((90 - 0) * Math.PI / 180);
+    mainGroup.append('path')
+      .attr('d', outerArcGenerator as any)
+      .attr('transform', `translate(${centerX}, ${centerY})`)
+      .attr('fill', '#e5e7eb');
 
-      mainGroup.append('path')
-        .attr('d', arcGenerator as any)
-        .attr('transform', `translate(${centerX}, ${centerY})`)
-        .attr('fill', '#e5e7eb')
+    // Draw color zone arc (value indicator)
+    const innerArcGenerator = d3.arc<any>()
+      .innerRadius(radius - arcWidth / 2)
+      .outerRadius(radius - 7 + arcWidth / 2)
+      .startAngle(-Math.PI / 2)
+      .endAngle(this.needleRotation() * Math.PI / 180);
 
-
-    // Draw color zones
-    /* const colorZonesGroup = mainGroup.append('g').attr('class', 'color-zones');
-    this._colorZones().forEach(zone => {
-      const startAngle = -90 + (zone.from * 180 / 100);
-      const endAngle = -90 + (zone.to * 180 / 100);
-      const arcGenerator = d3.arc<any>()
-        .innerRadius(radius - arcWidth / 2)
-        .outerRadius(radius + arcWidth / 2)
-        .startAngle((startAngle - 0) * Math.PI / 180)
-        .endAngle((endAngle - 0) * Math.PI / 180);
-
-      colorZonesGroup.append('path')
-        .attr('d', arcGenerator as any)
-        .attr('fill', zone.color)
-        .attr('class', 'color-arc')
-        .attr('transform', `translate(${centerX}, ${centerY})`);
-    }); */
+    mainGroup.append('g')
+      .attr('class', 'color-zones')
+      .append('path')
+      .attr('d', innerArcGenerator as any)
+      .attr('fill', this.arcColor())
+      .attr('class', 'color-arc')
+      .attr('transform', `translate(${centerX}, ${centerY})`);
 
     // Draw tick marks and labels
     this.drawTickMarks(mainGroup, centerX, centerY, size);
@@ -201,17 +170,11 @@ export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('transform', `translate(${centerX}, ${centerY})`);
 
     const needleLength = size / 2 - 50;
-    const needleBaseWidth = 8; // Fat head
-    const needleTipWidth = 1;  // Sharp tail
+    const needleBaseWidth = 8;
+    const needleTipWidth = 1;
     
-    // Create needle path (triangle/arrow shape)
-    const needlePath = `
-      M ${-needleBaseWidth / 2} 0
-      L ${needleBaseWidth / 2} 0
-      L ${needleTipWidth / 2} ${-needleLength}
-      L ${-needleTipWidth / 2} ${-needleLength}
-      Z
-    `;
+    // Create needle path (triangle/arrow shape: fat at head, sharp at tail)
+    const needlePath = `M ${-needleBaseWidth / 2} 0 L ${needleBaseWidth / 2} 0 L ${needleTipWidth / 2} ${-needleLength} L ${-needleTipWidth / 2} ${-needleLength} Z`;
 
     // Needle
     needleGroup.append('path')
@@ -237,29 +200,34 @@ export class SpeedometerComponent implements OnInit, OnChanges, AfterViewInit {
 
   private drawTickMarks(group: d3.Selection<SVGGElement, unknown, null, undefined>, centerX: number, centerY: number, size: number): void {
     const ticksGroup = group.append('g').attr('class', 'tick-marks');
-
     const majorTickCount = 6;
     const angleRange = 180;
     const startAngle = -90;
+    const tickOuterRadius = size / 2 - 35;
+    const tickInnerRadius = size / 2 - 45;
 
     for (let i = 0; i < majorTickCount; i++) {
       const percentage = i / (majorTickCount - 1);
-      const angle = startAngle + (percentage * angleRange);
+      const angle = (startAngle + (percentage * angleRange) - 90) * Math.PI / 180;
       
-      // Major tick
-      const x1 = centerX + (size / 2 - 35) * Math.cos((angle - 90) * Math.PI / 180);
-      const y1 = centerY + (size / 2 - 35) * Math.sin((angle - 90) * Math.PI / 180);
-      const x2 = centerX + (size / 2 - 45) * Math.cos((angle - 90) * Math.PI / 180);
-      const y2 = centerY + (size / 2 - 45) * Math.sin((angle - 90) * Math.PI / 180);
-
       ticksGroup.append('line')
-        .attr('x1', x1)
-        .attr('y1', y1)
-        .attr('x2', x2)
-        .attr('y2', y2)
+        .attr('x1', centerX + tickOuterRadius * Math.cos(angle))
+        .attr('y1', centerY + tickOuterRadius * Math.sin(angle))
+        .attr('x2', centerX + tickInnerRadius * Math.cos(angle))
+        .attr('y2', centerY + tickInnerRadius * Math.sin(angle))
         .attr('stroke', '#6b7280')
         .attr('class', 'tick-major');
-
     }
+  }
+
+  getLabel() {
+    return this.value <= 33 ? 'Satisfactory' : this.value <= 66 ? 'Substantial' : 'Strong';
+  }
+
+  labelStyles() {
+    return `
+      color: ${this.arcColor()};
+      border-color: ${this.arcColor()};
+    `;
   }
 }

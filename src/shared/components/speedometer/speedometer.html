@@ -1,12 +1,7 @@
 <div class="speedometer-container" [style.width.px]="size" [style.height.px]="size">
   <div #svgContainer class="svg-container"></div>
   
-  <!-- Value display -->
-  <div class="value-display" *ngIf="showValue">
-    <div class="value-number" [style.color]="needleColor()">
-      {{ displayValue() }}
-      <span class="value-unit" *ngIf="unit">{{ unit }}</span>
-    </div>
-    <div class="value-label" *ngIf="label">{{ label }}</div>
+  <div class="value-display">
+    <div class="value-label" [style]="labelStyles()">{{ getLabel() }}</div>
   </div>
 </div>

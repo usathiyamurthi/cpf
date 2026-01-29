@@ -33,22 +33,9 @@
     stroke-width: 2;
     stroke-linecap: round;
   }
-  
-  .tick-minor {
-    stroke: #94a3b8;
-    stroke-width: 1;
-    stroke-linecap: round;
-  }
 }
 
-.tick-labels {
-  .tick-label {
-    fill: #475569;
-    font-size: 11px;
-    font-weight: 500;
-    user-select: none;
-  }
-}
+
 
 .center-hub {
   fill: #6b7280;
@@ -56,18 +43,9 @@
 }
 
 .needle-group {
-  .needle-shadow {
-    stroke: rgba(0, 0, 0, 0.1);
-    stroke-width: 3;
-    stroke-linecap: round;
-    filter: blur(1px);
-  }
-  
   .needle {
-    stroke: #6b7280;
-    stroke-width: 2;
-    stroke-linecap: round;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: fill 0.3s ease;
   }
 }
 
@@ -86,40 +64,13 @@
   text-align: center;
   pointer-events: none;
   
-  .value-number {
-    font-size: 2em;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 4px;
-    transition: color 0.3s ease;
-    
-    .value-unit {
-      font-size: 0.6em;
-      font-weight: 500;
-      margin-left: 4px;
-      opacity: 0.8;
-    }
-  }
-  
   .value-label {
     font-size: 0.85em;
-    color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 600;
-  }
-}
-
-// Responsive scaling
-@media (max-width: 768px) {
-  .value-display {
-    .value-number {
-      font-size: 1.5em;
-    }
-    
-    .value-label {
-      font-size: 0.75em;
-    }
+    padding: 2px 6px;
+    border: 1px solid;
   }
 }
 
@@ -135,14 +86,6 @@
 @media (prefers-color-scheme: dark) {
   .tick-major {
     stroke: #cbd5e1;
-  }
-  
-  .tick-minor {
-    stroke: #64748b;
-  }
-  
-  .tick-label {
-    fill: #cbd5e1;
   }
   
   .center-hub {
