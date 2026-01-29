@@ -1,0 +1,42 @@
+.dimension-section {
+  padding: 2rem 0;
+}
+
+.dimension-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+// Responsive breakpoints
+@media (min-width: 1200px) {
+  .dimension-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .dimension-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .dimension-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .dimension-section {
+    padding: 1.5rem 0;
+  }
+
+  .dimension-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

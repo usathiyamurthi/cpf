@@ -1,1 +1,7 @@
-<p>dimension-section works!</p>
+<div class="dimension-section">
+  <div class="dimension-grid">
+    @for (dimension of dimensions; track dimension.title) {
+      <app-card [data]="dimension"></app-card>
+    }
+  </div>
+</div>
