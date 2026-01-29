@@ -1,1 +1,10 @@
-<p>card works!</p>
+<div class="dimension-card">
+  <div class="card-header">
+    <i [class]="'fa-solid ' + data.icon + ' card-icon'"></i>
+    <h3 class="card-title">{{ data.title }}</h3>
+  </div>
+  <p class="card-description">{{ data.description }}</p>
+  <div class="speedometer-container">
+    <app-speedometer [value]="data.value" [color]="data.color"></app-speedometer>
+  </div>
+</div>
