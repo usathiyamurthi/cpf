@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
+import { DiagnosticService, SpiDiagnosticsModule } from '@spi/diagnostics';
 import { Subscription } from 'rxjs';
 import { CpfModalDialogModule } from '../lib/cpf-modaldialog.module';
-import { DiagnosticService, SpiDiagnosticsModule } from '@spi/diagnostics';
+import { Base } from './features/components/base/base';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CpfModalDialogModule, SpiDiagnosticsModule],
+  imports: [RouterOutlet, RouterLink, CpfModalDialogModule, Base, SpiDiagnosticsModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
